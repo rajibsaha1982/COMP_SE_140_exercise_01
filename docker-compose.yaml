@@ -1,0 +1,41 @@
+services:
+  init_vstorage:
+    image: alpine:latest
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: sh -c '[ -f vstorage ] || touch vstorage'
+    restart: "no"
+
+  storage:
+    build: ./storage
+    ports:
+      - "8000:8000"
+    volumes:
+      - storage_data:/data
+    depends_on:
+      - init_vstorage
+
+  service1:
+    build: ./service1
+    ports:
+      - "8199:8199"
+    volumes:
+      - ./vstorage:/vstorage
+    depends_on:
+      - storage
+      - init_vstorage
+
+  service2:
+    build: ./service2
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./vstorage:/vstorage
+    depends_on:
+      - init_vstorage
+      - storage
+      - service1
+
+volumes:
+  storage_data:
