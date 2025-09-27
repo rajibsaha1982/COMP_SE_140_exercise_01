@@ -1,6 +1,9 @@
 <?php
 $uri    = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
+
+$url1 = 'http://service2:8080/';
+$url2 = 'http://storage:8000/log';
  
 function nowUTC() {
     return gmdate('Y-m-d\TH:i:s\Z');
@@ -23,7 +26,7 @@ function postToStorage($rec) {
             'content' => $rec
         ]
     ]);
-    file_get_contents('http://storage:8000/log', false, $ctx);
+    file_get_contents($GLOBALS["url2"], false, $ctx);
 }
  
 function appendToVolume($rec) {
@@ -49,7 +52,7 @@ if ($uri === '/status' && $method === 'GET') {
     appendToVolume($r1);
     
     try {
-        $r2 = @file_get_contents('http://service2:8080/');
+        $r2 = @file_get_contents($GLOBALS["url1"]);
         if ($r2 === false) {
             $r2 = "Service2 unavailable";
         }
@@ -62,7 +65,7 @@ if ($uri === '/status' && $method === 'GET') {
 }
  
 if ($uri === '/log' && $method === 'GET') {
-    $log = file_get_contents('http://storage:8000/log');
+    $log = file_get_contents($GLOBALS["url2"]);
     header('Content-Type: text/plain');
     echo $log;
     exit;
