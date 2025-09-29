@@ -14,15 +14,17 @@ def nowUTC() {
 
 def uptimeHours() {
     def uptimeSec = new File('/proc/uptime').text.split()[0].toDouble()
+    
     String.format('%.2f', uptimeSec / 3600)
 }
 
 def freeMB() {
-    new File('/').getFreeSpace() / (1024 * 1024) as long
+    new File('/').getFreeSpace() / (1024 * 1024) as int
 }
 
 def postToStorage(data) {
     def conn = new URL(storageUrl).openConnection()
+    
     conn.setRequestMethod('POST')
     conn.setDoOutput(true)
     conn.setRequestProperty('Content-Type', 'text/plain')
@@ -35,20 +37,26 @@ port(8080)
 get('/', { req, res ->
     try {
         def record = "${nowUTC()}: uptime ${uptimeHours()} hours, free disk in root: ${freeMB()} MBytes"
+        
         try {
             postToStorage(record)
-        } catch (Exception e) {
-            println "Failed to post to storage: ${e.message}"
+        } 
+        catch (Exception ex) {
+            println "Failed to post to storage: ${ex.message}"
         }
+
         try {
             new File(volumeFile).withWriterAppend { it << record + "\n" }
-        } catch (Exception e) {
+        } 
+        catch (Exception ex) {
             println "Failed to write to volume: ${e.message}"
         }
+
         res.type('text/plain')
         return record
-    } catch (Exception e) {
+    } 
+    catch (Exception ex) {
         res.status(500)
-        return "Error: ${e.message}"
+        return "Error: ${ex.message}"
     }
 })

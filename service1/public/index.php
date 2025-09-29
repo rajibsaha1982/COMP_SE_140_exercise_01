@@ -56,8 +56,9 @@ if ($uri === '/status' && $method === 'GET') {
         if ($r2 === false) {
             $r2 = "Service2 unavailable";
         }
-    } catch (Exception $e) {
-        $r2 = "Service2 error: " . $e->getMessage();
+    } 
+    catch (Exception $ex) {
+        $r2 = "Service2 error: " . $ex->getMessage();
     }
     
     echo $r1 . "\n" . $r2;
