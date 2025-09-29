@@ -1,0 +1,12 @@
+rs@rs-Virtual-Machine:~$ docker container ls
+CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+d69c3e8a2474   exercise_01-service2   "groovy service2.gro…"   40 minutes ago   Up 40 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   exercise_01-service2-1
+e78e4c181904   exercise_01-service1   "docker-php-entrypoi…"   40 minutes ago   Up 40 minutes   0.0.0.0:8199->8199/tcp, [::]:8199->8199/tcp   exercise_01-service1-1
+f5fc02f23a5f   exercise_01-storage    "docker-php-entrypoi…"   40 minutes ago   Up 40 minutes   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp   exercise_01-storage-1
+rs@rs-Virtual-Machine:~$ docker network ls
+NETWORK ID     NAME                  DRIVER    SCOPE
+08e59666fd09   bridge                bridge    local
+4f631f4adaa9   exercise_01_default   bridge    local
+69885a197073   host                  host      local
+f0132f287db6   none                  null      local
+rs@rs-Virtual-Machine:~$ 

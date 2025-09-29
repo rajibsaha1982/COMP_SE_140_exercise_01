@@ -1,0 +1,11 @@
+## LLM Tool:
+As project coding is done in VS Code, so built-in Github Co-Pilot is used as coding assistant. Additionally, Microsoft Co-Pilot is used in Microsoft Edge browser to take support for error or technical issues.
+
+## Motivation/Reason:
+As these tools are now responding faster with better search result from asked question, rather ending up lots of weblinks opened and manually looking for solution on those pages. Although, there may be some glitch but faster and more focused result is driving factor here.
+
+## Help from LLM:
+Now a days, these tools have become a integral part like a pair programmer who assist/suggest needful correction.
+
+## Mistakes:
+One mistake I found, while I try to upload my project to github, some technical issue was arising althoug everything worked before. But when I gave the issue to Microsoft Co-Pilot about the error, it responsding same everytime although the issue is different and given suggestion is more like generalized answer.
